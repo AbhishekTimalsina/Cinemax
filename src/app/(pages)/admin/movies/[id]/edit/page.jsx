@@ -28,7 +28,7 @@ export default function EditMoviePage({ params }) {
     setIsLoading(false);
   }, [movieId]);
 
-  console.log(movie);
+  // console.log(movie);
 
   const handleSubmit = async (movieData) => {
     setIsSubmitting(true);

@@ -29,7 +29,6 @@ export default function BookingsPage() {
         };
       });
 
-      console.log(data);
       setBooking(data);
     });
 

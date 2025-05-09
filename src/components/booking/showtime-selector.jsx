@@ -1,21 +1,17 @@
 import Link from "next/link";
 import { Calendar, MapPin } from "lucide-react";
-import { getShowtimesByDate, getShowTimesByMovie } from "@/lib/movie-data";
+
+import AllShowTimes from "./allshowtimes";
 
 export default async function ShowtimeSelector({ movieId }) {
-  const todayShowtimes = getShowtimesByDate("Today");
-  const showTimes = await getShowTimesByMovie(movieId);
-
-  if (!showTimes) {
-    return <div>No Shows for this movie</div>;
-  }
-
   return (
     <div className="md:w-2/3">
       <h2 className="text-2xl font-bold mb-6 border-l-4 border-red-600 pl-4">
         Select Showtime
       </h2>
 
+      <AllShowTimes movieId={movieId} />
+      {/* 
       <div className="mb-8">
         <div className="flex overflow-x-auto gap-4 pb-4">
           {["Today", "Tomorrow", "Wed, May 1", "Thu, May 2", "Fri, May 3"].map(
@@ -42,7 +38,7 @@ export default async function ShowtimeSelector({ movieId }) {
         showtimes={showTimes}
         // showTimes={showTimes.availableShows}
         movieId={movieId}
-      />
+      /> */}
     </div>
   );
 }

@@ -38,8 +38,8 @@ export default function PaymentForm({ onSubmit }) {
 
     if (!formData.cardNumber.trim()) {
       newErrors.cardNumber = "Card number is required";
-    } else if (!/^\d{16}$/.test(formData.cardNumber.replace(/\s/g, ""))) {
-      newErrors.cardNumber = "Invalid card number";
+    } else if (formData.cardNumber.replace(/\s/g, "").length != 16) {
+      newErrors.cardNumber = "Invalid card number ";
     }
 
     if (!formData.expiryDate.trim()) {
@@ -50,13 +50,13 @@ export default function PaymentForm({ onSubmit }) {
 
     if (!formData.cvv.trim()) {
       newErrors.cvv = "CVV is required";
-    } else if (!/^\d{3,4}$/.test(formData.cvv)) {
+    } else if (!/^\d{3}$/.test(formData.cvv)) {
       newErrors.cvv = "Invalid CVV";
     }
 
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+    } else if (!/.+@.+\..+/.test(formData.email)) {
       newErrors.email = "Invalid email format";
     }
 
@@ -166,6 +166,7 @@ export default function PaymentForm({ onSubmit }) {
               errors.email ? "border border-red-500" : ""
             }`}
             placeholder="your@email.com"
+            required
           />
           {errors.email && (
             <p className="text-red-500 text-sm mt-1">{errors.email}</p>

@@ -3,19 +3,24 @@ import ShowTimes from "@/app/models/ShowTimes";
 import UserBookings from "@/app/models/UserBookings";
 import dbConnect from "@/lib/mongoose";
 
-export async function PUT(request, { params }) {
-  await dbConnect();
-  let body = await request.json();
-  let slug = await params;
+// export async function PUT(request, { params }) {
+//   await dbConnect();
+//   let body = await request.json();
+//   let slug = await params;
 
-  console.log(slug, body);
-
-  return Response.json({ win: true });
-}
+//   if (!isValidObjectId(slug.id)) {
+//     return Response.json({ error: "Invalid showtime id" });
+//   }
+//   return Response.json({ win: true });
+// }
 
 export async function GET(request, { params }) {
   await dbConnect();
   let slug = await params;
+
+  if (!isValidObjectId(slug.id)) {
+    return Response.json({ error: "Invalid showtime id" });
+  }
 
   let showTime = await ShowTimes.findById(slug.id);
 
@@ -28,6 +33,10 @@ export async function DELETE(request, { params }) {
   let searchParams = request.nextUrl.searchParams;
   let seatId = searchParams.get("seatId");
   let slug = await params;
+
+  if (!isValidObjectId(slug.id)) {
+    return Response.json({ error: "Invalid showtime id" });
+  }
 
   await ShowTimes.updateOne(
     { _id: slug.id },

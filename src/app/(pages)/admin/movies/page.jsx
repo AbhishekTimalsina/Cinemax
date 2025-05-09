@@ -61,8 +61,8 @@ export default function MoviesPage() {
   };
 
   async function handleDeleteMovies(e, data) {
-    console.log(data);
-    await deleteMovie(data._id);
+    let deletedMovie = await deleteMovie(data._id);
+    setAllMovies((prev) => prev.filter((d) => d._id != deletedMovie._id));
     // await deleteShowTime(data.showTimeId, data.seatsId._id);
     // setAllMovies((prevData) => prevData.filter((d) => d._id != data._id));
   }
@@ -116,8 +116,6 @@ export default function MoviesPage() {
       ),
     },
   ];
-
-  console.log(filteredMovies);
 
   // const columns = [
   //   {

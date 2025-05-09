@@ -15,6 +15,7 @@ export default function CreateMoviePage() {
     try {
       // In a real app, this would be an API call to create the movie
       console.log("Creating new movie:", movieData);
+
       await postNewMovie(movieData);
       // Simulate API delay
       // await new Promise((resolve) => setTimeout(resolve, 1000));

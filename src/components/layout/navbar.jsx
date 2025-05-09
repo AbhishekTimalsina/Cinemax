@@ -31,18 +31,6 @@ export default function Navbar() {
             >
               Movies
             </Link>
-            <Link
-              href="/cinemas"
-              className="text-white hover:text-red-500 transition duration-300"
-            >
-              Cinemas
-            </Link>
-            <Link
-              href="/offers"
-              className="text-white hover:text-red-500 transition duration-300"
-            >
-              Offers
-            </Link>
 
             <Link
               href="/admin"
@@ -82,26 +70,13 @@ export default function Navbar() {
             >
               Movies
             </Link>
+
             <Link
-              href="/cinemas"
+              href="/admin"
               className="block px-3 py-2 text-white hover:bg-gray-800 rounded-md"
               onClick={() => setIsMenuOpen(false)}
             >
-              Cinemas
-            </Link>
-            <Link
-              href="/offers"
-              className="block px-3 py-2 text-white hover:bg-gray-800 rounded-md"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Offers
-            </Link>
-            <Link
-              href="/account"
-              className="block px-3 py-2 text-white hover:bg-gray-800 rounded-md"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Account
+              Admin
             </Link>
           </div>
         </div>

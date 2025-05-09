@@ -9,10 +9,11 @@ import SeatSelection from "@/components/booking/seat-selection";
 
 import { getMovieById, getSeatById } from "@/lib/movie-data";
 import { use } from "react";
+import LoadingSpinner from "@/components/utils/loading-spinner";
 export default function SeatsPage({ params }) {
   const [movie, setMovie] = useState([]);
   const [selectedSeats, setSelectedSeats] = useState([]);
-  const [showSeats, setShowSeats] = useState(null);
+  const [showSeats, setShowSeats] = useState({});
   params = use(params);
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -26,12 +27,8 @@ export default function SeatsPage({ params }) {
     getSeatById(seatId || "0").then((res) => setShowSeats(res));
   }, []);
 
-  if (!movie || !showSeats) {
-    return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center">
-        Movie or show not found
-      </div>
-    );
+  if (!movie || Object.keys(showSeats).length == 0) {
+    return <LoadingSpinner />;
   }
 
   const handleSeatSelect = (seatId) => {
@@ -46,7 +43,7 @@ export default function SeatsPage({ params }) {
     if (selectedSeats.length === 0) return;
 
     router.push(
-      `/movies/${movieId}/booking/payment?seatId=${seatId}&seats=${selectedSeats.join(
+      `/movie/${movieId}/booking/payment?seatId=${seatId}&seats=${selectedSeats.join(
         ","
       )}`
     );

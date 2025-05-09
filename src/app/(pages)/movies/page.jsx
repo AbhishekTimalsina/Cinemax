@@ -1,16 +1,11 @@
-import Hero from "@/components/home/hero";
 import MovieSection from "@/components/home/movie-section";
 import { getMovies } from "@/lib/movie-data";
 
-export default async function Home() {
+export default async function Movies() {
   let data = await getMovies();
-
-  // console.log(data);
 
   return (
     <div>
-      <Hero movie={data.nowShowing} />
-
       <MovieSection
         title="Now Showing"
         movies={data.nowShowing}

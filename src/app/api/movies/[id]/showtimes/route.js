@@ -1,10 +1,15 @@
 import Seats from "@/app/models/Seats";
 import ShowTime from "@/app/models/ShowTimes";
 import dbConnect from "@/lib/mongoose";
+import { isValidObjectId } from "mongoose";
 
 export async function GET(request, { params }) {
   const slug = await params;
   await dbConnect();
+
+  if (!isValidObjectId(slug.id)) {
+    return Response.json({ error: "Invalid showtime id" });
+  }
   let data = await ShowTime.findOne({ movieId: slug.id });
 
   return Response.json(data);

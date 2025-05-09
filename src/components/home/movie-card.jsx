@@ -31,7 +31,7 @@ export default function MovieCard({ movie, buttonText, buttonAction }) {
 
         {buttonAction === "book" ? (
           <Link
-            href={`/movies/${movie._id}/booking`}
+            href={`/movie/${movie._id}/booking`}
             className="block w-full bg-red-600 hover:bg-red-700 text-center text-white font-bold py-2 rounded transition duration-300"
           >
             {buttonText}

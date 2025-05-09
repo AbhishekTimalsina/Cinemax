@@ -50,7 +50,7 @@ export async function POST(request) {
 
   await userBooking.save();
 
-  return Response.json(seat);
+  return Response.json(userBooking);
 }
 
 // await dbConnect();

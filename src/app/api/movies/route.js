@@ -1,5 +1,6 @@
 import dbConnect from "@/lib/mongoose";
 import Movies from "@/app/models/Movies";
+import { put } from "@vercel/blob";
 
 export async function GET() {
   await dbConnect();
@@ -45,16 +46,22 @@ export async function GET() {
 }
 
 export async function POST(request) {
-  let body = await request.json();
-  console.log("it will hit over here 9/11");
-  console.log(body);
+  await dbConnect();
+  let formData = await request.formData();
+
+  let body = Object.fromEntries(formData.entries());
+
+  const blob = await put(body.image.name + Math.random(), body.image, {
+    access: "public",
+  });
+
   let newMovie = new Movies({
     ...body,
-    image:
-      "https://m.media-amazon.com/images/M/MV5BNzc4ZWQ3NmYtODE0Ny00YTQ4LTlkZWItNTBkMGQ0MmUwMmJlXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    image: blob.url,
   });
   await newMovie.save();
 
+  // return Response.json({ name: "I don't know" });
   return Response.json(body);
 }
 // let datas = [

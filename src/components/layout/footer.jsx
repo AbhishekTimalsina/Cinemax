@@ -10,7 +10,7 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-gray-900 text-white ">
       {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
@@ -169,7 +169,7 @@ export default function Footer() {
           </div>
         </div> */}
 
-      <div className="border-t border-gray-800 mt-8 py-8 text-center text-gray-400 text-sm">
+      <div className="border-t border-gray-800 py-8 text-center text-gray-400 text-sm">
         <p>&copy; {new Date().getFullYear()} CINEMAX. All rights reserved.</p>
       </div>
       {/* </div> */}

@@ -51,6 +51,8 @@ export default function MovieForm({ movie, onSubmit, isSubmitting }) {
     }
   };
 
+  console.log(formData);
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -60,7 +62,7 @@ export default function MovieForm({ movie, onSubmit, isSubmitting }) {
       setImagePreview(imageUrl);
       setFormData({
         ...formData,
-        image: imageUrl,
+        image: file,
       });
     }
   };

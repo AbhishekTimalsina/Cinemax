@@ -1,7 +1,6 @@
 import Image from "next/image";
 
 export default function BookingSummary({ movie, showSeats }) {
-  console.log(new Date(showSeats.date).toDateString());
   return (
     <div className="flex flex-col md:flex-row items-center gap-4 mb-8 bg-gray-900 p-4 rounded-lg py-3">
       <img

@@ -150,6 +150,7 @@ export async function getShowTimesByMovie(movieId) {
     `${process.env.NEXT_PUBLIC_WEB_URI}/api/movies/${movieId}/showtimes`
   );
   data = await data.json();
+  console.log(data);
   return data;
 }
 
@@ -175,9 +176,15 @@ export async function getSeatById(id) {
 
 export async function postNewMovie(movieData) {
   // console.log(movieData);
+  let formData = new FormData();
+
+  for (let key of Object.keys(movieData)) {
+    formData.append(key, movieData[key]);
+  }
+
   let data = await fetch(`${process.env.NEXT_PUBLIC_WEB_URI}/api/movies`, {
     method: "POST",
-    body: JSON.stringify(movieData),
+    body: formData,
   });
   data = await data.json();
 
@@ -185,14 +192,17 @@ export async function postNewMovie(movieData) {
 }
 
 export async function putUpdateMovie(id, movieData) {
-  console.log("Echoing from here -------------");
-  console.log(movieData);
+  let formData = new FormData();
+
+  for (let key of Object.keys(movieData)) {
+    formData.append(key, movieData[key]);
+  }
 
   let data = await fetch(
     `${process.env.NEXT_PUBLIC_WEB_URI}/api/movies/${id}`,
     {
       method: "PUT",
-      body: JSON.stringify(movieData),
+      body: formData,
     }
   );
   data = await data.json();
@@ -212,7 +222,6 @@ export async function deleteMovie(id) {
 }
 
 export async function postBookTicket(seatId, movieId, selectedSeats, userData) {
-  seatId;
   let data = await fetch(
     `${process.env.NEXT_PUBLIC_WEB_URI}/api/userbooking?seatId=${seatId}`,
     {
@@ -225,6 +234,16 @@ export async function postBookTicket(seatId, movieId, selectedSeats, userData) {
       }),
     }
   );
+  data = await data.json();
+  return data;
+}
+
+export async function getBookingById(id) {
+  let data = await fetch(
+    `${process.env.NEXT_PUBLIC_WEB_URI}/api/userbooking/${id}`
+  );
+  data = await data.json();
+
   return data;
 }
 

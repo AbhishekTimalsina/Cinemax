@@ -9,6 +9,8 @@ import PaymentConfirmation from "@/components/booking/payment-confirmation";
 import OrderSummary from "@/components/booking/order-summary";
 import { getMovieById, getSeatById, postBookTicket } from "@/lib/movie-data";
 import { use } from "react";
+import LoadingSpinner from "@/components/utils/loading-spinner";
+import ErrorMessage from "@/components/utils/error";
 
 export default function PaymentPage({ params }) {
   params = use(params);
@@ -21,7 +23,6 @@ export default function PaymentPage({ params }) {
 
   const selectedSeats = seatsParam ? seatsParam.split(",") : [];
   const movieId = params.id;
-  // const movie = getMovieById(movieId);
 
   const [paymentStep, setPaymentStep] = useState("details");
   const [formData, setFormData] = useState({
@@ -39,12 +40,20 @@ export default function PaymentPage({ params }) {
     getMovieById(movieId).then((res) => setMovie(res));
   }, []);
 
-  if (!movie || !showSeats || selectedSeats.length === 0) {
-    return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center">
-        Invalid booking information
-      </div>
-    );
+  if (selectedSeats.length === 0) {
+    return <ErrorMessage msg="You have not selected any seats" />;
+  }
+
+  if (movie.length == 0 || !showSeats) {
+    return <LoadingSpinner />;
+  }
+
+  if (showSeats.error) {
+    return <ErrorMessage msg={showSeats.error} />;
+  }
+
+  if (movie.error) {
+    return <ErrorMessage msg={movie.error} />;
   }
 
   const handleFormSubmit = (data) => {
@@ -52,11 +61,11 @@ export default function PaymentPage({ params }) {
     setPaymentStep("confirmation");
   };
   const handleConfirmPayment = () => {
-    // here we do the update thingy
-
-    postBookTicket(seatId, movieId, selectedSeats, formData);
-
-    router.push(`/movies/${movieId}/booking/confirmation`);
+    postBookTicket(seatId, movieId, selectedSeats, formData).then((data) => {
+      router.push(
+        `/movie/${movieId}/booking/confirmation?bookingId=${data._id}`
+      );
+    });
   };
 
   return (
